@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\StudentLoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,11 +24,36 @@ class AuthenticatedSessionController extends Controller
             'status' => $request->session()->get('status'),
         ]);
     }
+    public function createAdmin(Request $request)
+    {
+        return Inertia::render('auth/admin-login', [
+            'canResetPassword' => Route::has('password.request'),
+            'status' => $request->session()->get('status'),
+        ]);
+    }
+    public function createStudent(Request $request)
+    {
+        return Inertia::render('auth/student-login', [
+            'canResetPassword' => Route::has('password.request'),
+            'status' => $request->session()->get('status'),
+        ]);
+    }
 
     /**
      * Handle an incoming authentication request.
      */
     public function store(LoginRequest $request): RedirectResponse
+    {
+        $request->authenticate();
+
+        $request->session()->regenerate();
+
+        return redirect()->intended(route('dashboard', absolute: false));
+    }
+    /**
+     * Handle an incoming authentication request for students.
+     */
+    public function studentLogin(StudentLoginRequest $request): RedirectResponse
     {
         $request->authenticate();
 

@@ -10,11 +10,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/auth-layout';
 
+
 type LoginForm = {
-    email: string;
+    matric_no: string;
     password: string;
     remember: boolean;
 };
+
 
 interface LoginProps {
     status?: string;
@@ -23,38 +25,38 @@ interface LoginProps {
 
 export default function Login({ status, canResetPassword }: LoginProps) {
     const { data, setData, post, processing, errors, reset } = useForm<Required<LoginForm>>({
-        email: '',
+        matric_no: '',
         password: '',
         remember: false,
     });
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route('login'), {
+        post(route('student.login'), {
             onFinish: () => reset('password'),
         });
     };
 
     return (
-        <AuthLayout title="Admin Login" description="Enter your email and password below to log in">
+        <AuthLayout title="Log in to your account" description="Enter your matric no. and password below to log in">
             <Head title="Log in" />
 
             <form className="flex flex-col gap-6" onSubmit={submit}>
                 <div className="grid gap-6">
                     <div className="grid gap-2">
-                        <Label htmlFor="email">Email address</Label>
+                        <Label htmlFor="matric_no">Matric number</Label>
                         <Input
-                            id="email"
-                            type="email"
+                            id="matric_no"
+                            type="matric_no"
                             required
                             autoFocus
                             tabIndex={1}
-                            autoComplete="email"
-                            value={data.email}
-                            onChange={(e) => setData('email', e.target.value)}
-                            placeholder="email@example.com"
+                            // autoComplete="matric_no"
+                            value={data.matric_no}
+                            onChange={(e) => setData('matric_no', e.target.value)}
+                            placeholder=" 210407022"
                         />
-                        <InputError message={errors.email} />
+                        <InputError message={errors.matric_no} />
                     </div>
 
                     <div className="grid gap-2">
@@ -98,7 +100,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
 
                 <div className="text-muted-foreground text-center text-sm">
                     Don't have an account?{' '}
-                    <TextLink href={route('register')} tabIndex={5}>
+                    <TextLink href={route('register')} tabIndex={6}>
                         Sign up
                     </TextLink>
                 </div>
@@ -108,5 +110,3 @@ export default function Login({ status, canResetPassword }: LoginProps) {
         </AuthLayout>
     );
 }
-
-
