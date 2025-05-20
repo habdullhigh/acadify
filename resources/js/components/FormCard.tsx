@@ -9,6 +9,7 @@ interface FormCardProps {
     link: string;
     target_office: string;
     rejectionReason?: string;
+    type?: 'Form' | 'Reciept';
 }
 
 const statusColorMap: Record<FormStatus, string> = {
@@ -17,7 +18,7 @@ const statusColorMap: Record<FormStatus, string> = {
     pending: 'text-yellow-600',
 };
 
-export default function FormCard({ id, title, status, description, created, link, rejectionReason,target_office }: FormCardProps) {
+export default function FormCard({ type ,id, title, status, description, created, link, rejectionReason,target_office }: FormCardProps) {
     return (
         <div className="">
             <div className="text-sm">
@@ -51,7 +52,7 @@ export default function FormCard({ id, title, status, description, created, link
 
             <div className="mt-2">
                 <a href={link} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 underline">
-                    View Uploaded Form
+                    View Uploaded {type === 'Form' ? 'Form' : 'Reciept'}
                 </a>
             </div>
         </div>
