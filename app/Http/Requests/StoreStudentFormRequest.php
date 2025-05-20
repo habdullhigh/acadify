@@ -13,7 +13,7 @@ class StoreStudentFormRequest extends FormRequest
     public function authorize(): bool
     {
         // Check if the user is authenticated and has the 'student' role
-        return Auth::check() && auth()->user->isStudent();
+        return Auth::check() && Auth::user()->user_type == 'student';
     }
 
     /**
@@ -26,7 +26,6 @@ class StoreStudentFormRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'office_id' => 'required|exists:offices,id',
-            'user_id' => 'required|exists:users,id',
             'form_file' => 'required|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
 
         ];

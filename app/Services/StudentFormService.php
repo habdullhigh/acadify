@@ -4,27 +4,31 @@ namespace App\Services;
 
 use App\Http\Requests\StoreStudentFormRequest;
 use App\Models\StudentForm;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
-class StudentFormService{
+class StudentFormService
+{
 
-    public function createStudentForm(StoreStudentFormRequest $validatedData, string $filePath)
+    public function createStudentForm($validatedData, string $filePath)
     {
 
 
-        // Create the student form record
-        return StudentForm::create([
-            'student_form_link' => $filePath,
-            'user_id' => $validatedData->user()->id,
+        $studentForm = new StudentForm([
+            'user_id' => Auth::id(),
             'office_id' => $validatedData['office_id'],
             'title' => $validatedData['title'],
             'status' => 'pending',
-            'description' => $validatedData['description'],
+            'description' => 'Student form submitted by user',
         ]);
 
+        $studentForm->form_link = $filePath;
+        $studentForm->save();
+
         Log::channel('user')->info('User has performed an action', [
-            'user_id' => $validatedData->user()->id,
             'action' => 'uploaded a file',
+            'response' => $studentForm,
+            'link' => $filePath,
         ]);
     }
 }

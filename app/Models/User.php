@@ -51,17 +51,17 @@ class User extends Authenticatable
             'password' => 'hashed',
             'matric_no' => 'string',
             'office_id' => 'integer',
-            'user_type' => RolesEnum::class,
+            // 'user_type' => RolesEnum::values()
 
         ];
     }
 
     public function isStudent()
     {
-        return $this->roles()->where('name', 'student')->exists();
+        return $this->where('user_type', 'student')->exists();
     }
     public function isAdmin()
     {
-        return $this->roles()->where('name', 'admin')->exists();
+        return $this->where('user_type', 'admin')->exists();
     }
 }

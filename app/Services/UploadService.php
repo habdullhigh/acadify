@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Services;
+use Cloudinary\Cloudinary;
 
 use Cloudinary\Api\Upload\UploadApi;
 use Cloudinary\Asset\File;
-use Illuminate\Container\Attributes\Auth;
-use Stringable;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Log ;
+
 
 class UploadService
 {
@@ -29,10 +30,17 @@ class UploadService
 
         $response = $this->uploadApi->upload($file->getPathname(), [
             'public_id' => $name,
-            'use_filename' => TRUE,
+            'use_filename' => true,
             'overwrite' => TRUE,
         ]);
-        return $response;
+
+        Log::channel('user')->info('User has performed an action', [
+
+            'action' => 'uploaded a file',
+            'response' => $response,
+            'link' => $response['secure_url'],
+        ]);
+        return $response['secure_url'];
 
     }
     public function namingConvention(string $matricNo, string $type): string

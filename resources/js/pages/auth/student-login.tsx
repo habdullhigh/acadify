@@ -10,13 +10,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/auth-layout';
 
-
 type LoginForm = {
     matric_no: string;
     password: string;
     remember: boolean;
 };
-
 
 interface LoginProps {
     status?: string;
@@ -32,14 +30,20 @@ export default function Login({ status, canResetPassword }: LoginProps) {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route('student.login'), {
+        post(route('student.register'), {
             onFinish: () => reset('password'),
         });
     };
 
     return (
-        <AuthLayout title="Log in to your account" description="Enter your matric no. and password below to log in">
+        <AuthLayout title="Log in to your account a STUDENT" description="Enter your matric no. and password below to log in">
             <Head title="Log in" />
+            <div className="text-muted-foreground text-center text-sm">
+                Want to login as an ADMIN ?{' '}
+                <TextLink href={route('student.login')} tabIndex={5}>
+                    Log in
+                </TextLink>
+            </div>
 
             <form className="flex flex-col gap-6" onSubmit={submit}>
                 <div className="grid gap-6">
@@ -100,7 +104,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
 
                 <div className="text-muted-foreground text-center text-sm">
                     Don't have an account?{' '}
-                    <TextLink href={route('register')} tabIndex={6}>
+                    <TextLink href={route('register.student')} tabIndex={6}>
                         Sign up
                     </TextLink>
                 </div>

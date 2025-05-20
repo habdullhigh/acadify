@@ -17,7 +17,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 Route::middleware(['auth'])->group(function () {
     Route::get('/offices',[OfficeController::class,'getOffices'])->name('offices');
-    Route::post('forms/submit',[StudentFormController::class, 'store'])->name('form.submit');
+    Route::post('form/submit',[StudentFormController::class, 'store'])->name('form.submit');
+
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/student-forms', function(){
+        return Inertia::render('StudentFormsPage');
+    });
+    Route::get('/reciepts', function(){
+        return Inertia::render('RecieptsPage');
+    });
 });
 
 

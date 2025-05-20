@@ -22,8 +22,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             OfficeSeeder::class,
-            RoleSeeder::class,
-            OfficeAdminSeeder::class,
+            // RoleSeeder::class,
+            // OfficeAdminSeeder::class,
             StudentSeeder::class,
         ]);
         $this->command->info('Database seeded successfully.');

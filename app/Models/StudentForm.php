@@ -11,7 +11,7 @@ class StudentForm extends Model
     use HasFactory;
 
     protected $fillable = [
-        'student_form_link',
+        'form_link',
         'user_id',
         'office_id',
         'title',

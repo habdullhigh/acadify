@@ -20,7 +20,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Reciepts',
-        href: '/reciept',
+        href: '/reciepts',
         icon: BookOpen,
     },
 ];

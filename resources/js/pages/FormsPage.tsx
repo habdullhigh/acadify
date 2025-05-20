@@ -15,12 +15,13 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
+
 const formTypes = ['course_registration', 'course_change', 'course_drop', 'course_add'];
 export default function FormPage() {
     const { data, setData, post, processing, errors } = useForm({
         form_file: null,
-        form_type: '',
-        office_id: '',
+        title: '',
+        office_id: 0,
     });
 
     const [offices, setOffices] = useState<{ label: string; value: string | number }[]>([]);
@@ -50,10 +51,13 @@ export default function FormPage() {
     const submit: FormEventHandler = async (e) => {
         e.preventDefault();
         try{
-            const response = await axios.postForm('/form/submit',data)
+            const response = await axios.postForm('form/submit',data)
+            console.log('Form submitted successfully:', response.data);
 
-        }catch{
-            
+        }catch(error){
+            console.error('Error submitting form:', error);
+
+
         }
 
 
@@ -71,8 +75,8 @@ export default function FormPage() {
                         <label>Form Type</label>
                         <CustomDropdown
                             options={formTypeOptions}
-                            value={data.form_type}
-                            onChange={(value) => setData('form_type', value)}
+                            value={data.title}
+                            onChange={(value) => setData('title', value)}
                             placeholder="Select a form type"
                             minWidth="100%"
                             fontHeavy
@@ -100,7 +104,7 @@ export default function FormPage() {
                         )}
                     </div>
                     <div>
-                        <Button variant="default" size="lg" className="" onClick={}>
+                        <Button variant="default" size="lg" className="" onClick={submit} disabled={processing}>
                             Submit Form
                         </Button>
                     </div>
