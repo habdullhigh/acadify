@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\StudentForm;
 use App\Http\Requests\StoreStudentFormRequest;
+use App\Models\Office;
 use App\Services\StudentFormService;
 use App\Services\UploadService;
 use Illuminate\Http\Request;
@@ -65,6 +66,7 @@ class StudentFormController extends Controller
                 'description' => $form->description,
 
             ];
+            $form1['target_office'] = Office::where('id', $form->office_id)->first()->name;
             $form1['link'] = $form->form_link;
             $form1['created'] = $form->created_at->format('Y-m-d H:i:s');
             $form1['updated'] = $form->updated_at->format('Y-m-d H:i:s');

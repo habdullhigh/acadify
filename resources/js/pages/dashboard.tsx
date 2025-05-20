@@ -49,6 +49,7 @@ export default function Dashboard() {
                                 description={form.description}
                                 created={form.created}
                                 link={form.link}
+                                target_office={form.target_office}
                                 rejectionReason={form.rejection_reason} // if available
                             />
                         ))}
