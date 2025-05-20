@@ -56,11 +56,11 @@ class User extends Authenticatable
         ];
     }
 
-    public function isStudent()
+    public function isStudent():bool
     {
         return $this->where('user_type', 'student')->exists();
     }
-    public function isAdmin()
+    public function isAdmin(): bool
     {
         return $this->where('user_type', 'admin')->exists();
     }

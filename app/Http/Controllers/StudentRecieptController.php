@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\StudentReciept;
 use App\Http\Requests\StoreStudentRecieptRequest;
 use App\Http\Requests\UpdateStudentRecieptRequest;
+use App\Services\StudentRecieptService;
+use App\Services\UploadService;
 
 class StudentRecieptController extends Controller
 {
+    public function __construct(
+        private readonly UploadService $uploadService,
+        private readonly StudentRecieptService $studentRecieptService
+    ){}
     /**
      * Display a listing of the resource.
      */
@@ -29,7 +35,21 @@ class StudentRecieptController extends Controller
      */
     public function store(StoreStudentRecieptRequest $request)
     {
-        //
+        $validatedData = $request->validated();
+
+        $matricNo = $request->user()->matric_no;
+
+        // Upload the file using the UploadService
+        $filePath = $this->uploadService->uploadFile(
+            $validatedData['reciept_file'],
+            'student_reciept',
+            $matricNo
+        );
+        // Create the student form record using the StudentFormService
+        $this->studentRecieptService->createStudentReciept($validatedData, $filePath);
+
+        return response()->json(['message' => 'Student form created successfully.'], 201);
+
     }
 
     /**

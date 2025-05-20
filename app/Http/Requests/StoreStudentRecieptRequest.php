@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreStudentRecieptRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class StoreStudentRecieptRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::check() && Auth::user()->user_type == 'student';
     }
 
     /**
@@ -22,7 +23,10 @@ class StoreStudentRecieptRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|string|max:255',
+            'office_id' => 'required|exists:offices,id',
+            'reciept_file' => 'required|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
+
         ];
     }
 }

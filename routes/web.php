@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\StudentFormController;
+use App\Http\Controllers\StudentRecieptController;
+use App\Models\StudentReciept;
 use App\Services\StudentFormService;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -15,9 +17,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 });
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('admin/admin', function () {
+        return Inertia::render('admin/dashboard');
+    })->name('dashboard.admin');
+});
 Route::middleware(['auth'])->group(function () {
     Route::get('/offices',[OfficeController::class,'getOffices'])->name('offices');
     Route::post('form/submit',[StudentFormController::class, 'store'])->name('form.submit');
+    Route::post('reciept/submit',[StudentRecieptController::class, 'store'])->name('reciept.submit');
+    Route::get('my-reciepts',[StudentRecieptController::class, 'getReciepts'])->name('reciept.get');
+    Route::get('my-forms',[StudentFormController::class, 'getForms'])->name('form.get');
 
 });
 

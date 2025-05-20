@@ -16,10 +16,10 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 
-const formTypes = ['course_registration', 'course_change', 'course_drop', 'course_add'];
+const receiptTypes = ['course_registration', 'course_change', 'course_drop', 'course_add'];
 export default function FormPage() {
     const { data, setData, post, processing, errors } = useForm({
-        form_file: null,
+        reciept_file: null,
         title: '',
         office_id: '',
     });
@@ -43,7 +43,7 @@ export default function FormPage() {
         fetchOffices();
     }, []);
 
-    const formTypeOptions = formTypes.map((type) => ({
+    const formTypeOptions = receiptTypes.map((type) => ({
         label: type.replace(/_/g, ' ').toUpperCase(),
         value: type,
     }));
@@ -51,7 +51,7 @@ export default function FormPage() {
     const submit: FormEventHandler = async (e) => {
         e.preventDefault();
         try{
-            const response = await axios.postForm('form/submit',data)
+            const response = await axios.postForm('reciept/submit',data)
             console.log('Form submitted successfully:', response.data);
 
         }catch(error){
@@ -72,7 +72,7 @@ export default function FormPage() {
             <div className="mx-6 mt-6 flex flex-col gap-6 bg-[#0B1739] p-4">
                 <div className="flex w-lg justify-between gap-6 border-amber-50 bg-[#0B1739] p-4">
                     <div className="">
-                        <label>Form Type</label>
+                        <label>Reciept Type</label>
                         <CustomDropdown
                             options={formTypeOptions}
                             value={data.title}
@@ -95,17 +95,17 @@ export default function FormPage() {
                     </div>
                 </div>
                 <div className="flex w-lg justify-between gap-6">
-                    <div>
-                        <UploadButton onFileSelect={(file) => setData('form_file', file)} label="Upload Form File" />
-                        {data.form_file && (
+                    <div className="px-4">
+                        <UploadButton onFileSelect={(file) => setData('reciept_file', file)} label="Upload Receipt File" />
+                        {data.reciept_file && (
                             <p className="mt-1 text-sm text-white">
-                                Selected: <span className="font-medium">{data.form_file.name}</span>
+                                Selected: <span className="font-medium">{data.reciept_file.name}</span>
                             </p>
                         )}
                     </div>
                     <div>
                         <Button variant="default" size="lg" className="" onClick={submit} disabled={processing}>
-                            Submit Form
+                            Submit Reciept
                         </Button>
                     </div>
                 </div>

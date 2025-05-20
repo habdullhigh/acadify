@@ -6,6 +6,8 @@ use App\Models\StudentForm;
 use App\Http\Requests\StoreStudentFormRequest;
 use App\Services\StudentFormService;
 use App\Services\UploadService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StudentFormController extends Controller
 {
@@ -42,21 +44,49 @@ class StudentFormController extends Controller
 
         return response()->json(['message' => 'Student form created successfully.'], 201);
     }
+    public function getForms(Request $request)
+    {
+        $filter = $request->query('filter', 'all');
+
+        $query = StudentForm::where('user_id', Auth::id());
+
+        $query = match ($filter) {
+            'pending' => $query->where('status', 'pending'),
+            'approved' => $query->where('status', 'approved'),
+            'rejected' => $query->where('status', 'rejected'),
+            default => $query,
+        };
+
+        $forms = $query->get()->transform(function ($form) {
+            $form1 = [
+                'id' => $form->id,
+                'title' => $form->title,
+                'status' => $form->status,
+                'description' => $form->description,
+
+            ];
+            $form1['link'] = $form->form_link;
+            $form1['created'] = $form->created_at->format('Y-m-d H:i:s');
+            $form1['updated'] = $form->updated_at->format('Y-m-d H:i:s');
+            return $form1;
+        });
+
+        return response()->json([
+            'forms' => $forms,
+            'message' => 'Student forms retrieved successfully.',
+        ], 200);
+    }
+
+
     /**
      * Display the specified resource.
      */
-    public function show(StudentForm $studentForm)
-    {
-        //
-    }
+    public function show(StudentForm $studentForm) {}
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(StudentForm $studentForm)
-    {
-        //
-    }
+    public function edit(StudentForm $studentForm) {}
 
     /**
      * Update the specified resource in storage.
@@ -66,10 +96,7 @@ class StudentFormController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(StudentForm $studentForm)
-    {
-        //
-    }
+    public function destroy(StudentForm $studentForm) {}
     /**
      * Upload the form picture
 
