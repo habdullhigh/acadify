@@ -18,7 +18,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('admin/admin', function () {
+    Route::get('admin/dashboard', function () {
         return Inertia::render('admin/dashboard');
     })->name('dashboard.admin');
 });

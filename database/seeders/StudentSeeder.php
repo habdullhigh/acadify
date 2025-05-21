@@ -17,23 +17,23 @@ class StudentSeeder extends Seeder
      */
     public function run(): void
     {
-        $user1 = User::create([
-            'name' => 'TEST student 1',
-            'email' => 'user123355@example.com',
-            'password' => Hash::make('password'),
-            'matric_no' => '2104071221',
-        ]);
+        // $user1 = User::create([
+        //     'name' => 'TEST student 1',
+        //     'email' => 'user123355@example.com',
+        //     'password' => Hash::make('password'),
+        //     'matric_no' => '2104071221',
+        // ]);
 
-        $office = Office::where('name', OfficeEnum::DSA->value)->first();
+        $office = Office::where('name', OfficeEnum::DSA->value)->first()->id;
         $this->command->info('Office ID: ' . $office);
 
-        // $user2 = User::create([
-        //     'name' => 'TEST Admin 1',
-        //     'email' => 'user1234@example.com',
-        //     'password' => Hash::make('password'),
-        //     'office_id' =>$office->id,
-        //     'user_type' => 'admin',
-        // ]);
+        $user2 = User::create([
+            'name' => 'TEST Admin 1',
+            'email' => 'user1234@example.com',
+            'password' => Hash::make('password'),
+            'office_id' =>$office,
+            'user_type' => 'admin',
+        ]);
 
         // $this->command->info('USERS seeded successfully. ' + $user1->name + ' and ');
     }
