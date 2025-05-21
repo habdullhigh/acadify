@@ -12,18 +12,20 @@ import AuthLayout from '@/layouts/auth-layout';
 type RegisterForm = {
     name: string;
     email: string;
-    matricNo: string;
+    matric_no: string;
     password: string;
     password_confirmation: string;
+    user_type: string;
 };
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm<Required<RegisterForm>>({
         name: '',
         email: '',
-        matricNo: '',
+        matric_no: '',
         password: '',
         password_confirmation: '',
+        user_type:'student',
     });
 
     const submit: FormEventHandler = (e) => {
@@ -56,15 +58,15 @@ export default function Register() {
                     </div>
 
                     <div className="grid gap-2">
-                        <Label htmlFor="matricNo">Matric number</Label>
+                        <Label htmlFor="matric_no">Matric number</Label>
                         <Input
-                            id="matricNo"
+                            id="matric_no"
                             type="text"
                             required
                             tabIndex={2}
-                            autoComplete="matricNo"
-                            value={data.matricNo}
-                            onChange={(e) => setData('matricNo', e.target.value)}
+                            autoComplete="matric_no"
+                            value={data.matric_no}
+                            onChange={(e) => setData('matric_no', e.target.value)}
                             disabled={processing}
                             placeholder="251234567"
                         />

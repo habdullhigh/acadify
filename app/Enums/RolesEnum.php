@@ -4,8 +4,8 @@ namespace App\Enums;
 
 enum RolesEnum: string
 {
-    const STUDENT = 'student';
-    const ADMIN = 'admin';
+    const STUDENT = "student";
+    const ADMIN = "admin";
 
     public static function values(): array
     {

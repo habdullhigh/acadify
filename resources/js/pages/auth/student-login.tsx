@@ -40,7 +40,7 @@ export default function Login({ status, canResetPassword }: LoginProps) {
             <Head title="Log in" />
             <div className="text-muted-foreground text-center text-sm">
                 Want to login as an ADMIN ?{' '}
-                <TextLink href={route('student.login')} tabIndex={5}>
+                <TextLink href={route('login')} tabIndex={5}>
                     Log in
                 </TextLink>
             </div>

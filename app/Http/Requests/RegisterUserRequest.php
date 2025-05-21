@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Requests;
 
 use App\Enums\RolesEnum;
@@ -20,16 +21,16 @@ class RegisterUserRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'string', Password::defaults()],
-            'user_type' => ['required', new Enum(RolesEnum::class)],
+            'user_type' => ['required'],
 
             'matric_no' => [
-                Rule::requiredIf(fn () => $this->user_type === RolesEnum::STUDENT->value),
+                Rule::requiredIf(fn() => $this->user_type === 'student'),
                 'nullable',
                 'string',
                 'unique:users,matric_no',
             ],
             'office_id' => [
-                Rule::requiredIf(fn () => $this->user_type === RolesEnum::ADMIN->value),
+                Rule::requiredIf(fn() => $this->user_type === 'admin'),
                 'nullable',
                 'exists:offices,id',
             ],
