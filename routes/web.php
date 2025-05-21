@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminSubmissionsController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\StudentFormController;
 use App\Http\Controllers\StudentRecieptController;
@@ -17,10 +18,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 });
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('admin/dashboard', function () {
+Route::middleware(['auth', 'verified','admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', function () {
         return Inertia::render('admin/dashboard');
     })->name('dashboard.admin');
+    Route::get('/all-submissions', [AdminSubmissionsController::class, 'allSubmissions' ])->name('submissions.admin');
+    Route::get('/submissions', function () {
+        return Inertia::render('admin/submissions');
+    })->name('submissions');
 });
 Route::middleware(['auth'])->group(function () {
     Route::get('/offices',[OfficeController::class,'getOffices'])->name('offices');

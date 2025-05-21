@@ -27,12 +27,12 @@ const mainNavItems: NavItem[] = [
 const adminNavItems: NavItem[] = [
     {
         title: 'Dashboard',
-        href: 'admin/dashboard',
+        href: route('dashboard.admin'),
         icon: LayoutGrid,
     },
     {
         title: 'Submissions',
-        href: '/submissions',
+        href: route('submissions'),
         icon: Folder,
     },
 ];
@@ -49,7 +49,7 @@ export function AppSidebar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href="/dashboard" prefetch>
+                            <Link href={userType === 'admin'? '/admin/dashboard': '/dashboard'} prefetch>
                                 <AppLogo />
                             </Link>
                         </SidebarMenuButton>
