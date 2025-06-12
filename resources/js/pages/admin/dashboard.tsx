@@ -42,8 +42,9 @@ export default function Dashboard() {
             <Head title="Admin Dashboard" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border md:min-h-min">
-                    <h1>All Submissions</h1>
-                    <div className="flex-row items-center justify-between">
+                    <h1 className='font-semibold'>All Submissions</h1>
+                    <h2>To approve or rejected any forms go the submissions Menu </h2>
+                    <div className="flex-row items-center justify-between gap-2 m-2">
                         <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border md:min-h-min">
                             <h2 className="p-2 font-semibold">Forms</h2>
                             <div className="grid grid-cols-1 gap-4 p-6 md:grid-cols-2 lg:grid-cols-3">

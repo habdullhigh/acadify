@@ -26,6 +26,10 @@ Route::middleware(['auth', 'verified','admin'])->prefix('admin')->group(function
     Route::get('/submissions', function () {
         return Inertia::render('admin/submissions');
     })->name('submissions');
+    Route::get('/office-submissions', [AdminSubmissionsController::class, 'showOfficeSubmissions' ])->name('office.submissions.admin');
+    Route::post('accept-submission', [AdminSubmissionsController::class, 'acceptSubmission'])->name('submissions.accept');
+    Route::post('reject-submission', [AdminSubmissionsController::class, 'rejectSubmission'])->name('submissions.reject');
+
 });
 Route::middleware(['auth'])->group(function () {
     Route::get('/offices',[OfficeController::class,'getOffices'])->name('offices');

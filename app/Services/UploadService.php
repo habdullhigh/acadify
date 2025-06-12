@@ -43,7 +43,7 @@ class UploadService
         return $response['secure_url'];
 
     }
-    public function namingConvention(string $matricNo, string $type): string
+    public function namingConvention( $matricNo, string $type): string
     {
         $timestamp = now()->format('Ymd_His');
         return "{$matricNo}_{$type}_{$timestamp}";
