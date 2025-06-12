@@ -51,8 +51,7 @@ class User extends Authenticatable
             'password' => 'hashed',
             'matric_no' => 'string',
             'office_id' => 'integer',
-            // 'user_type' => RolesEnum::values()
-
+            'user_type' => 'string'
         ];
     }
 
