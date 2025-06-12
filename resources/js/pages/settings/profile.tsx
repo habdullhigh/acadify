@@ -22,7 +22,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 type ProfileForm = {
     name: string;
     email: string;
-}
+};
 
 export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: boolean; status?: string }) {
     const { auth } = usePage<SharedData>().props;
@@ -31,6 +31,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
         name: auth.user.name,
         email: auth.user.email,
     });
+    const matric_no: string = auth.user.matric_no;
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
@@ -47,7 +48,12 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
             <SettingsLayout>
                 <div className="space-y-6">
                     <HeadingSmall title="Profile information" description="Update your name and email address" />
-
+                    {matric_no && (
+                        <div>
+                            <h3 className='font-semibold'>Matric Number </h3>
+                            <h2>{matric_no}</h2>
+                        </div>
+                    )}
                     <form onSubmit={submit} className="space-y-6">
                         <div className="grid gap-2">
                             <Label htmlFor="name">Name</Label>

@@ -53,14 +53,12 @@ export default function FormPage() {
         try{
             const response = await axios.postForm('reciept/submit',data)
             console.log('Form submitted successfully:', response.data);
+            alert('Reciept submitted successfully')
 
         }catch(error){
             console.error('Error submitting form:', error);
-
-
+            alert('An Error occured when submitting reciept')
         }
-
-
     };
 
     console.log(data);

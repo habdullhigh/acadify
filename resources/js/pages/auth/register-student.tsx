@@ -30,7 +30,7 @@ export default function Register() {
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route('register.student'), {
+        post(route('student.registration'), {
             onFinish: () => reset('password', 'password_confirmation'),
         });
     };
@@ -70,7 +70,7 @@ export default function Register() {
                             disabled={processing}
                             placeholder="251234567"
                         />
-                        <InputError message={errors.email} />
+                        <InputError message={errors.matric_no} />
                     </div>
                     <div className="grid gap-2">
                         <Label htmlFor="email">Email address</Label>
